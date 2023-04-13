@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="app-registration">
+        <form action="/settings/app-registration/" method="post">
+            <input name="api_id" placeholder="api_id">
+            <input name="api_hash" placeholder="api_hash">
+            <button>registrate</button>
+        </form>
+    </div>
+    <div class="login-telegram">
+        <form action="/settings/login-telegram/" method="post">
+            <input type="phone" name="phone" placeholder="phone">
+            <button>get code</button>
+        </form>
+    </div>
+    <div class="confirm-code">
+        <form action="/settings/confirm-code/" method="post">
+            <input name="code" placeholder="code">
+            <button>confirm</button>
+        </form>
+    </div>
+    <div class="get-chats">
+        <form action="/settings/get-chats/" method="post">
+            <button>get chats</button>
+        </form>
+    </div>
+</body>
+</html>

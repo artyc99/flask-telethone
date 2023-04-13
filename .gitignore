@@ -1,3 +1,8 @@
-*.session
-.idea/
+# Development files
 /venv/
+**/__pycache__
+/.vscode/
+/.idea/
+
+secrets.py
+*.session

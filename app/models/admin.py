@@ -1,6 +1,12 @@
+from dataclasses import dataclass
+
+from flask_login import UserMixin
 
 
-class User:
+@dataclass
+class Admin(UserMixin):
+
     id: int
-    name: str
+
+    login: str
     password: str
