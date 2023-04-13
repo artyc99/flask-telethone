@@ -1,6 +1,7 @@
 import asyncio
 import time
 
+from telethon import events
 from telethon.sync import TelegramClient
 from telethon.tl.types import InputPeerUser
 
@@ -45,6 +46,11 @@ def main():
 
     # test(client)
 
+    @client.on(events.NewMessage(chats=[807536654]))
+    async def message_handler(event):
+        print(event.message.to_dict())
+
+    client.run_until_disconnected()
 
 def flask():
     from app import FlaskApplication
@@ -54,4 +60,4 @@ def flask():
 
 
 if __name__ == '__main__':
-    flask()
+    main()
