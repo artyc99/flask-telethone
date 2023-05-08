@@ -2,32 +2,119 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Пересылка</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='settings.css')}}">
 </head>
 <body>
-    <div class="app-registration">
-        <form action="/settings/app-registration/" method="post">
-            <input name="api_id" placeholder="api_id">
-            <input name="api_hash" placeholder="api_hash">
-            <button>registrate</button>
-        </form>
+    <div class="information">
+        <h3>Информация</h3>
+
+        <div class="status">
+            <a class="status-data">Статус подключения: {{data.status}}</a>
+        </div>
+
+        {% if 'api_id' in data and 'api_hash' in data %}
+            <div class="api">
+                <a class="api-id">API ID: {{data.api_id}}</a>
+                <a class="api-hash">API HASH: {{data.api_hash}}</a>
+            </div>
+        {% endif %}
     </div>
-    <div class="login-telegram">
-        <form action="/settings/login-telegram/" method="post">
-            <input type="phone" name="phone" placeholder="phone">
-            <button>get code</button>
-        </form>
-    </div>
-    <div class="confirm-code">
-        <form action="/settings/confirm-code/" method="post">
-            <input name="code" placeholder="code">
-            <button>confirm</button>
-        </form>
-    </div>
-    <div class="get-chats">
-        <form action="/settings/get-chats/" method="post">
-            <button>get chats</button>
-        </form>
-    </div>
+
+    {% if data.status == 'setup' %}
+        <div class="registration">
+            <h3>Главные настройки</h3>
+
+            {% if 'api_id' not in data and 'api_hash' not in data %}
+                <div class="app-registration">
+                    <form action="/settings/app-registration/" method="post">
+                        <input name="api_id" placeholder="api_id">
+                        <input name="api_hash" placeholder="api_hash">
+                        <button>Зарегистрировать</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            {% if 'api_id' in data and 'api_hash' in data %}
+                <div class="login-telegram">
+                    <form action="/settings/login-telegram/" method="post">
+                        <input type="phone" name="phone" placeholder="phone">
+                        <button>Получить код</button>
+                    </form>
+                </div>
+            {% endif %}
+
+            {% if data.status == 'waiting code' %}
+                <div class="confirm-code">
+                    <form action="/settings/confirm-code/" method="post">
+                        <input name="code" placeholder="code">
+                        <button>Подтвердить</button>
+                    </form>
+                </div>
+            {% endif %}
+
+
+        </div>
+    {% endif %}
+
+
+    {% if data.status == 'connected' %}
+        <div class="settings">
+            <h3>Настройки пересылки</h3>
+            <div class="get-chats">
+                <form action="/settings/get-chats/" method="post">
+                    <button>Получить список чатов</button>
+                </form>
+            </div>
+            <div class="add-listener">
+                <form action="/settings/add-listener/" method="post">
+                    <select name="listen">
+                        <option disabled selected>От кого</option>
+                        {% if 'dialogs' in data %}
+                            {% for key, title in data.dialogs.items() %}
+                                <option value={{key}}>{{ title }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <select name="recive">
+                        <option disabled selected>Кому</option>
+                        {% if 'dialogs' in data %}
+                            {% for key, title in data.dialogs.items() %}
+                                <option value={{key}}>{{ title }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <button>Добавить пересылку</button>
+                </form>
+            </div>
+
+            <div class="listening">
+                {% if 'events' in data %}
+                    {% for event in data.events %}
+                        <form action="/settings/delete-listener/" method="post">
+
+                            <a>{{event.from_title}}</a>
+                            <a>{{event.to_title}}</a>
+                            <button name="index" value="{{loop.index0}}">Удалить</button>
+
+                        </form>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="dump">
+                <div class="dump-listeners">
+                    <form action="/settings/dump-listeners/" method="post">
+                        <button>Скачать файл настроек пересылки</button>
+                    </form>
+                </div>
+                <div class="load-listeners">
+                    <form action="/settings/load-listeners/" method="post">
+                        <input name="events-dump" placeholder="json dump">
+                        <button>Загрузить настройки пересылки</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 </body>
 </html>

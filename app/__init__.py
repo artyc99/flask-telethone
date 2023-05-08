@@ -1,5 +1,8 @@
+import hypercorn.asyncio
+from asgiref.wsgi import WsgiToAsgi
 from flask import Flask
 from flask_login import LoginManager
+from hypercorn import Config
 
 from .blueprints import BlueprintsRegistrator
 from .models.admin import Admin
@@ -36,3 +39,11 @@ class FlaskApplication:
 
     def run(self):
         self.__app.run()
+
+    async def hypercon(self):
+        asgi_app = WsgiToAsgi(self.__app)
+
+        config = Config()
+        port = 5000
+        config.bind = [f"0.0.0.0:{port}"]
+        await hypercorn.asyncio.serve(asgi_app, Config())

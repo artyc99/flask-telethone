@@ -1,0 +1,106 @@
+.information {
+    background-color: lightgray;
+    padding: 1em;
+    border-radius: .5em;
+    margin: 1em;
+}
+
+.registration {
+    background-color: lightgray;
+    padding: 1em;
+    border-radius: .5em;
+    margin: 1em;
+}
+
+.settings {
+    background-color: lightgray;
+    padding: 1em;
+    border-radius: .5em;
+    margin: 1em;
+}
+
+.app-registration button {
+    margin-top: 1em;
+    height: 2em;
+    border-radius: .5em;
+    border-width: 0;
+}
+.app-registration input {
+    margin-top: 1em;
+    height: 2em;
+    border-radius: .5em;
+    border-width: 0;
+}
+.login-telegram button {
+    margin-top: 1em;
+    height: 2em;
+    border-radius: .5em;
+    border-width: 0;
+}
+.login-telegram input {
+    margin-top: 1em;
+    height: 2em;
+    border-radius: .5em;
+    border-width: 0;
+}
+
+.get-chats button {
+    height: 2em;
+    border-radius: .5em;
+    margin: 1em;
+    border-width: 0;
+}
+
+.add-listener select {
+    height: 2em;
+    border-radius: .5em;
+    margin: 1em;
+}
+
+.add-listener button {
+    height: 2em;
+    border-radius: .5em;
+    margin: 1em;
+    border-width: 0;
+}
+
+.listening {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.listening form{
+    display: flex;
+    margin: .2em 1em;
+    height: 2em;
+    border-radius: .5em;
+    justify-content: space-between;
+    align-items: center;
+    background-color: snow;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+.listening button {
+    height: 2em;
+    border-radius: .5em;
+    border-width: 0;
+}
+
+.dump {
+    border-radius: .5em;
+    margin: 1em;
+}
+
+.dump button {
+    margin-top: 1em;
+    height: 2em;
+    border-radius: .5em;
+    border-width: 0;
+}
+.dump input {
+    margin-top: 1em;
+    height: 2em;
+    border-radius: .5em;
+    border-width: 0;
+}

@@ -1,6 +1,9 @@
 import asyncio
 import time
 
+import hypercorn.asyncio
+from asgiref.wsgi import WsgiToAsgi
+from hypercorn import Config
 from telethon import events
 from telethon.sync import TelegramClient
 from telethon.tl.types import InputPeerUser
@@ -8,6 +11,8 @@ from telethon.tl.types import InputPeerUser
 from app import FlaskApplication
 
 from secrets import api_id, api_hash, phone
+
+loop = asyncio.get_event_loop()
 
 
 def test(client) -> None:
@@ -46,11 +51,14 @@ def main():
 
     # test(client)
 
-    @client.on(events.NewMessage(chats=[807536654]))
+    id_list = [237650594]
+
+    @client.on(events.NewMessage(chats=id_list))
     async def message_handler(event):
         print(event.message.to_dict())
 
     client.run_until_disconnected()
+
 
 def flask():
     from app import FlaskApplication
@@ -59,5 +67,12 @@ def flask():
     app.run()
 
 
+def flask_async():
+    from app import FlaskApplication
+
+    app = FlaskApplication(application_secret='test')
+    loop.run_until_complete(app.hypercon())
+
+
 if __name__ == '__main__':
-    main()
+    flask_async()
